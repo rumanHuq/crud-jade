@@ -1,0 +1,24 @@
+extends layout
+block content
+    .table-responsive
+        table.table.table-hover
+            thead
+                tr
+                    th Movie name
+                    th Released Year
+                    th IMDB Link
+                    th ID
+                    th
+                    th
+            each movie in movies
+                tr
+                    td #{movie.title}
+                    td #{movie.year}
+                    td: a(href='http://www.imdb.com/title/'+ movie.imdb) #{movie.imdb}
+                    td #{movie._id}
+                    td: a(href='/data/delete/'+movie.title)
+                        span.glyphicon.glyphicon-remove
+                    td: a(href='/data/edit/'+movie.title)
+                        span.glyphicon.glyphicon-pencil
+                        
+            
