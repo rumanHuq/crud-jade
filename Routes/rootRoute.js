@@ -1,41 +1,48 @@
-module.exports = function(express,rootRouter,Film,assert){
+module.exports = function (express, rootRouter, Film, assert) {
     rootRouter.route('/')
-        .get(function(req,res){
+        .get(function (req, res) {
             res.render('index');
         })
-        
+
         ;
     rootRouter.route('/list')
-        .get(function(req,res){
-            
-            Film.find(function(err,movies){
-                assert.equal(null,err);
-                res.render('movies',{movies});
+        .get(function (req, res) {
+
+            Film.find(function (err, movies) {
+                assert.equal(null, err);
+                res.render('movies', { movies });
             });
         })
-        .post(function(req,res){
+        .post(function (req, res) {
             var film = new Film(req.body);
-            film.save(function(err,result){
-                assert.equal(null,err);
+            film.save(function (err, result) {
+                assert.equal(null, err);
                 res.redirect('/list');
-                
+
             });
         })
         ;
-        
+
+    //middleware to handle repeatative DB access request
+    rootRouter.use('/list/:id',function (req, res, next) {
+        Film.findById(req.params.id, function (err, result) {
+                assert.equal(null, err)
+                req.result = result;
+                next()
+            })
+    });
     rootRouter.route('/list/:id')
-        .get(function(req,res){
-            Film.findById(req.params.id, function(err,result){
-                assert.equal(null,err)
-                res.json(result)
-            })
+        .get(function (req, res) {
+            res.json(req.result)
         })
-        .put(function(req,res){
-            Film.findById(req.params.id, function(err,result){
-                result.title = req.body.title;
-                result.year = req.body.year;
-                result.imdb = req.body.imdb;
-                result.save(function(){res.redirect('/list')})
-            })
+        .patch(function (req, res) {
+            for(var i in req.body){
+                req.result[i] = req.body[i]
+            };
+            req.result.save(function(){res.json({success:true})})
         })
+        .delete(function(req,res){
+            req.result.remove(function(){res.json({remove:true})})
+        })
+
 };
