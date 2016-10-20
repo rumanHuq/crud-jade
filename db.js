@@ -13,6 +13,12 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 
 // serve static contents (css, js)
+app.use(function(req,res,next){
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Methods','GET,PUT,POST,PATCH,DELETE');
+    res.header('Access-Control-Allow-Headers','Content-Type');
+    next();
+});
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser({}));
 app.use(express.static('./public'));

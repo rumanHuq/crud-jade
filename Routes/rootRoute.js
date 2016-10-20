@@ -10,7 +10,8 @@ module.exports = function (express, rootRouter, Film, assert) {
 
             Film.find(function (err, movies) {
                 assert.equal(null, err);
-                res.render('movies', { movies });
+                //res.render('movies', { movies });
+                res.json(movies)
             });
         })
         .post(function (req, res) {
