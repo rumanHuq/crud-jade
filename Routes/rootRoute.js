@@ -44,5 +44,18 @@ module.exports = function (express, rootRouter, Film, assert) {
         .delete(function(req,res){
             req.result.remove(function(){res.json({remove:true})})
         })
-
+    rootRouter.route('/data/edit/:name')
+        .get(function (req, res) {
+            Film.findOne({title: req.params.name}, function (err, movie) {
+                assert.equal(null, err);
+                res.render('updatemovies', { movie });
+            });
+        })
+    rootRouter.route('/updatemovie/:id')
+        .post(function (req, res) {
+            Film.findOneAndUpdate({_id: req.params.id},{title: req.body.title, imdb: req.body.imdb, year: req.body.year}, function (err, movie) {
+                assert.equal(null, err);
+                res.redirect('/data/edit/'+req.body.title);
+            });
+        })
 };

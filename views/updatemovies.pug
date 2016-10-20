@@ -1,0 +1,22 @@
+extends layout
+block content
+    h1.text-center IMDB entries edit
+    form.form-horizontal(method='post', action='/updatemovie/'+movie._id)
+        div.form-group
+            label.col-sm-2.control-label(for='title') Title:
+            div.col-sm-10
+                input.form-control(name='title', id='title', placeholder='title', value=movie.title)
+        div.form-group
+            label.col-sm-2.control-label(for='year') Year:
+            div.col-sm-10
+                input.form-control(name='year', id='year', placeholder='year', value=movie.year)
+
+        div.form-group
+            label.col-sm-2.control-label(for='imdb') IMDB:
+            div.col-sm-10
+                input.form-control(name='imdb', id='imdb', placeholder='imdb', value=movie.imdb)
+
+        button.btn.btn-primary.col-sm-offset-2 Submit
+        a.btn.btn-primary(href='/list') List of Movies
+
+
