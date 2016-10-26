@@ -13,12 +13,10 @@ block content
             each movie in movies
                 tr
                     td #{movie.title}
-                    td #{movie.year}
+                    td #{movie.year} 
                     td: a(href='http://www.imdb.com/title/'+ movie.imdb) #{movie.imdb}
                     td #{movie._id}
-                    td: a(href='/data/delete/'+movie.title)
-                        span.glyphicon.glyphicon-remove
-                    td: a(href='/data/edit/'+movie.title)
-                        span.glyphicon.glyphicon-pencil
+                    td: span.glyphicon.glyphicon-remove(data-id= movie._id, data-class='delete')
+                    td: span.glyphicon.glyphicon-pencil(data-id= movie._id, data-class='edit')
                         
-            
+    
