@@ -1,4 +1,5 @@
 $(function(){
+
     $('span').click(function(e){
         var data = $(this).data('id');
         var cls = $(this).data('class');
@@ -16,4 +17,16 @@ $(function(){
             default: return;
         }
     });
+
+    $('form#edit').submit(function(e){
+        e.preventDefault()
+        $.ajax({
+            url: 'http://localhost:5000/list/'+$('#_id').val(),
+            type: 'put',
+            data: $('#edit').serialize(),
+            success: function(data){
+                if(data) location.href = 'http://localhost:5000/list/'
+            }
+        })
+    })
 })

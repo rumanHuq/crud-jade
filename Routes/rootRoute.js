@@ -2,9 +2,11 @@ module.exports = function (express, rootRouter, Film, assert) {
     rootRouter.route('/')
         .get(function (req, res) {
             res.render('index');
+        }) ;
+    rootRouter.route('/edit')
+        .put(function(req,res){
+            res.send(req.body)
         })
-
-        ;
     rootRouter.route('/list')
         .get(function (req, res) {
 
@@ -46,6 +48,6 @@ module.exports = function (express, rootRouter, Film, assert) {
         })
         .delete(function(req,res){
             req.result.remove(function(){res.json({remove:true})})
-        })
-
+        }) ;
+    
 };

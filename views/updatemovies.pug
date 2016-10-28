@@ -1,8 +1,7 @@
 extends layout
 block content
     h1.text-center IMDB entries edit
-    form.form-horizontal(id='edit', method='post', action='/list/'+movie._id, enctype="application/x-www-form-urlencoded")
-        input(type='hidden', name='_method', value='put')
+    form.form-horizontal(id='edit')
         div.form-group
             label.col-sm-2.control-label(for='title') Title:
             div.col-sm-10
@@ -16,7 +15,7 @@ block content
             label.col-sm-2.control-label(for='imdb') IMDB:
             div.col-sm-10
                 input.form-control(name='imdb', id='imdb', placeholder='imdb', value=movie.imdb)
-        
+            input.form-control(name='_id', id='_id', placeholder='_id', value=movie._id, type='hidden')
         button.btn.btn-primary.col-sm-offset-2 Submit
         a.btn.btn-primary(href='/list') List of Movies
 

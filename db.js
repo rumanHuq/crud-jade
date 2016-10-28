@@ -1,5 +1,6 @@
-var mongoose = require("mongoose"),
-    db = mongoose.connect('mongodb://localhost:27017/m101'),
+const secret = require('./secrets/credentials')
+const mongoose = require("mongoose"),
+    db = mongoose.connect(`mongodb://${secret.user}:${secret.password}@ds053126.mlab.com:53126/rest`),
     Film = require('./models/filmModel'),
     express = require ('express'), // server
     app = express(), //instance of express to use url
@@ -40,5 +41,5 @@ app.use(methodOverride(function(req, res){
 var rootRoute = require("./Routes/rootRoute")(express,rootRouter,Film,assert);
     
 app.listen(5000, function(){
-    console.log('running....');
+    console.log('running....',secret.user);
 })
